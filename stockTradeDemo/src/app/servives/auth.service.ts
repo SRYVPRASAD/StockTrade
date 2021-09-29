@@ -1,7 +1,7 @@
-   
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -9,8 +9,12 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   authSate: any = null;
+  newUser: any;
 
-  constructor( private afu: AngularFireAuth, private router :Router) {
+  constructor( private afu: AngularFireAuth, 
+        private db: AngularFirestore,
+        private router :Router) {
+
     this.afu.authState.subscribe((auth =>{
         this.authSate = auth;
       }))
@@ -72,4 +76,34 @@ export class AuthService {
     this.router.navigate(['/login']);
 
   }
+  /*create new user
+  createUser(user) {
+    console.log(user);
+    this.afu.createUserWithEmailAndPassword( user.email, user.password)
+      .then( userCredential => {
+        this.newUser = user;
+        console.log(userCredential);
+        userCredential.user.updateProfile( {
+          displayName: user.firstName + ' ' + user.lastName
+        });
+
+        this.insertUserData(userCredential)
+          .then(() => {
+            this.router.navigate(['/home']);
+          });
+      })
+      .catch( error => {
+        console.log(error)
+        throw error
+      });
+  }
+
+  insertUserData() {
+    return this.db.doc(`Users/${this.authSate.uid}`).set({
+      email: this.newUser.email,
+      firstname: this.newUser.firstName,
+      lastname: this.newUser.lastName,
+      role: 'network user'
+    })
+  }*/
 }

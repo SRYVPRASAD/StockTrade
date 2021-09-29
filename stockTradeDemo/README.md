@@ -28,8 +28,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Install AngularFire and Firebase
 
-  `ng add @angular/fire`
+  `npm install --save firebase  @angular/fire`
   Now that you have a new project setup, install AngularFire and Firebase from npm. 
+
+  `ng g guard guards/auth`
+  Firebase Guard to accesing the files .
   
   # /src/environments/environment.ts
    Add config of fireBase
+
+ 

@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  
 
 
   email = "";
@@ -27,7 +28,9 @@ export class RegisterComponent implements OnInit {
     this.errorMessage = "";
     this.succesMessage = "";
   };
-
+  // createUser(frm) {
+  //   this.authservice.createUser(frm.value);
+  // }
   onRegister(){
     this.clearErrorMessage();
     if(this.validateForm(this.email,this.password)){

@@ -1,1 +1,23 @@
-<p>userinfo works!</p>
+<div class="center-content">
+ <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <div class="text-info p-5" *ngIf ="authservice.currentUser">
+        <h2 class="allData">
+            User Information
+        </h2>
+        <h4><b>User ID:</b>{{authservice.currentUserId}}</h4>
+        <h4><b>User Name:</b>{{authservice.currentUserName}}</h4>
+        
+    </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="accent" (click)="onSignOut()">Sign out</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
