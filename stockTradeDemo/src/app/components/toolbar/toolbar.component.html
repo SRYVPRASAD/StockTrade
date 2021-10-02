@@ -1,0 +1,18 @@
+<mat-toolbar color='primary'>
+    <span><img src="assets/images/stocktrade_logo .png" width ='30%'  alt="STOCK TRADE" srcset=""></span> 
+  
+   
+    <div class="spacer"></div>
+
+<div class="link-row">
+    <a mat-button routerLink='/userinfo'>Home</a>
+    <a mat-button routerLink='/post'>Post</a>
+    <a mat-button routerLink='/login'>List-Post</a>
+    <a mat-button routerLink='/login'>Sign In</a>
+    <button mat-raised-button *ngIf="!user" (click)="login()" color="accent">Sign In</button>
+    <button mat-raised-button *ngIf="user" (click)="logout()" color="accent">Sign Out</button>
+    <button mat-raised-button *ngIf="!user" (click)="register()" color="accent">Sign Up</button>
+</div>
+
+</mat-toolbar>
+<div class="status"><p *ngIf="user">Logged in as: {{ user?.email }} - {{ user?.displayName }}</p></div>

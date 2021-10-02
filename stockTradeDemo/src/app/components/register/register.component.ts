@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from "src/app/servives/auth.service";
 import { Router } from "@angular/router";
+import {FormControl, Validators} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-register',
@@ -9,60 +12,54 @@ import { Router } from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
 
-
-  email = "";
-  password = "";
-  succesMessage = "";
-  errorMessage = ""; //error validation 
-  error: {name: string, message: string } = {name: "" ,message: "" }; // error in firebase
-
-
-  constructor(private authservice: AuthService, private router: Router) { }
-
+ 
+ 
+  constructor(private authservice: AuthService, 
+              private router: Router,
+              private formBuilder:FormBuilder) { }
+  
   ngOnInit(): void {
+    
   }
-  //clear the old error messages on the screen
-  clearErrorMessage(){
-    this.error ={name: "" ,message: "" },
-    this.errorMessage = "";
-    this.succesMessage = "";
-  };
+  
+  
+  profileForm = this.formBuilder.group({
+    firstName:[''],
+    lastName:[''],
+    email:[''],
+    password:[''],
+    webSite:[''],
+    img:['']
+  });
+  
+  
+  saveForm(){
+    console.log('Form data is ', this.profileForm.value);
+  }
+ 
+  @ViewChild('fileInput')
+  fileInput;
 
-  onRegister(){
-    this.clearErrorMessage();
-    if(this.validateForm(this.email,this.password)){
-      this.authservice.registerwithemail(this.email, this.password)
-      .then(() => {
-        this.succesMessage = "Sign UP successful!!!"
-        this.router.navigate(['/userinfo'])
-      }).catch(_error =>{
-        this.error = _error
-        this.router.navigate(['/register'])
-        
-      })
-    }
+  file: File | null = null;
+
+  onClickFileInputButton(): void {
+    this.fileInput.nativeElement.click();
   }
 
+  onChangeFileInput(): void {
+    const files: { [key: string]: File } = this.fileInput.nativeElement.files;
+    this.file = files[0];
 
-  //checking the email & password our side
-  validateForm(email, password)
-  {
-    if(email.length === 0){
-      this.errorMessage = "please enter the email ID .";
-      
-      return false;
-    }
-
-    if(password.length === 0){
-      this.errorMessage = "please enter the password .";
-      return false;
-    }
-    if(password.length < 6){
-      this.errorMessage = "please enter more than 6 character .";
-      return false;
-    }
-
-    this.errorMessage =" ";
-    return true;
+    console.log(this.file);
   }
+  createUser(profileForm) {
+    this.uploadProfile(this.file);
+    this.authservice.createUser(profileForm.value);
+    
+  }
+
+  uploadProfile(file){
+    this.authservice.uploadProfileImage(file)
+  }
+  
 }
