@@ -12,8 +12,11 @@ export class UserinfoComponent implements OnInit {
 
   constructor(public authservice: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-    
+  user:any;
+  ngOnInit() {
+    this.authservice.getUserState()
+    .subscribe( user => {
+      this.user = user;})
   }
   
   onSignOut(){

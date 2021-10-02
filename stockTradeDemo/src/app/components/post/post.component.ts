@@ -11,6 +11,7 @@ import { PostService } from 'src/app/servives/post.service';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+
   imgSrc : string = "assets/images/upload-1.png";
   selectedImage: any = null;
   isSubmitted: boolean;
@@ -23,9 +24,9 @@ export class PostComponent implements OnInit {
 
   formTemplate = this.formBuilder.group({
     imageUrl :  ['',Validators.required],
-    imgName  :  [''],
+    imgName  :  ['',Validators.required],
     cost     :  ['',Validators.required],
-    category :  ['']
+    category :  ['',Validators.required]
     });
 
   ngOnInit(): void {
@@ -43,17 +44,11 @@ export class PostComponent implements OnInit {
      this.selectedImage = null;
    }
   }
-  uploadFile(event) {
-    const file = event.target.files[0];
-    const filePath = `users/${this.auth.currentUserId}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-    const task = this.fdb.upload(filePath, file);
-  }
 
- 
    onSubmit(formValue) {   
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
-      var filePath = `${formValue.category}/${this.auth.currentUserId}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = `post/${formValue.category}/${this.auth.currentUserId}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.fdb.ref(filePath);
       this.fdb.upload(filePath, this.selectedImage) 
     }

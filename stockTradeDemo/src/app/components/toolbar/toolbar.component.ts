@@ -18,16 +18,16 @@ export class ToolbarComponent implements OnInit {
       this.user = user;})
   }
 
-  login() {
+ signIn() {
     this.router.navigate(['/login']);
 
   }
 
-  logout() {
+  signOut() {
      this.auth.signOut();
   }
 
-  register() {
+  signUp() {
     this.router.navigate(['/register']);
   }
 }
