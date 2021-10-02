@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage} from '@angular/fire/storage';
+
+import { finalize } from "rxjs/operators";
 
 
 @Injectable({
@@ -10,9 +13,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
   authSate: any = null;
   newUser: any;
+  proImage :any;
 
   constructor( private afu: AngularFireAuth, 
         private db: AngularFirestore,
+        private fdb : AngularFireStorage,
         private router :Router) {
 
     this.afu.authState.subscribe((auth =>{
@@ -35,6 +40,9 @@ export class AuthService {
    get currentUser(): any {
     return (this.authSate !== null) ? this.authSate : null ;
   }
+  getUserState() {
+    return this.afu.authState;
+  }
 
  
    get isUserEmailloggedIn(): boolean {
@@ -42,19 +50,6 @@ export class AuthService {
        return true
      }
      else false
-   }
-
-   registerwithemail(email:string, password:string )
-   {
-     return this.afu.createUserWithEmailAndPassword(email,password)
-     .then((user)=>
-     {
-       this.authSate = user;
-     })
-     .catch(error =>{
-        console.log(error)
-        throw error
-      });
    }
 
   loginwithemail(email:string, password:string ){
@@ -76,34 +71,42 @@ export class AuthService {
     this.router.navigate(['/login']);
 
   }
-  /*create new user
+ 
   createUser(user) {
-    console.log(user);
     this.afu.createUserWithEmailAndPassword( user.email, user.password)
       .then( userCredential => {
         this.newUser = user;
-        console.log(userCredential);
         userCredential.user.updateProfile( {
           displayName: user.firstName + ' ' + user.lastName
         });
-
-        this.insertUserData(userCredential)
+        this.insertUserData(userCredential.user)
           .then(() => {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/userinfo']);
           });
+          
       })
       .catch( error => {
         console.log(error)
         throw error
       });
   }
-
-  insertUserData() {
-    return this.db.doc(`Users/${this.authSate.uid}`).set({
+ 
+  uploadProfileImage(image){
+    this.proImage = image    
+  }
+  
+  insertUserData(userCre) {
+    var filePath = `users/${userCre.uid}/profile.jpg`;
+    const fileRef = this.fdb.ref(filePath);
+    this.fdb.upload(filePath, this.proImage) ;
+    return this.db.doc(`Users/${userCre.uid}`).set({
       email: this.newUser.email,
       firstname: this.newUser.firstName,
       lastname: this.newUser.lastName,
-      role: 'network user'
+      profileIMG: this.newUser.img,
+      webSite: this.newUser.webSite,
+
     })
-  }*/
+  }
 }
+

@@ -1,0 +1,12 @@
+
+.form-container{ 
+    justify-content: center;
+    text-align: -webkit-center;
+    margin-top: 100px;
+    max-width: 400px;
+}
+
+
+.example-card {
+    max-width: 400px;
+  }

@@ -5,6 +5,11 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule} from '@angular/fire/storage';
+
+
+
+
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,17 +21,24 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatFormFieldControl} from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule} from '@angular/material/select';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PostComponent } from './components/post/post.component';
+
 
 
 
@@ -36,7 +48,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    UserinfoComponent
+    UserinfoComponent,
+    PostComponent,
+    ToolbarComponent,
+    
   ],
   imports: [
     MatCardModule,
@@ -45,17 +60,22 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSnackBarModule, 
     MatSliderModule,
     MatFormFieldModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatToolbarModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
