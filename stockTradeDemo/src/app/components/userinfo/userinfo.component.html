@@ -11,8 +11,10 @@
         <h2 class="allData">
             User Information
         </h2>
-        <h4><b>User ID:</b>{{authservice.currentUserId}}</h4>
-        <h4><b>User Name:</b>{{authservice.currentUserName}}</h4>
+        <h4><b>User ID:</b>{{user?.uid}}</h4>
+        <h4><b>User ID:</b>{{ user?.email }}</h4>
+     
+        <h4><b>User Name:</b>{{ user?.displayName }}</h4>
         
     </div>
     </mat-card-content>

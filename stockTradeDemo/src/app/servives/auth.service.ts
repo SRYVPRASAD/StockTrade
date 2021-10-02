@@ -73,7 +73,7 @@ export class AuthService {
   }
  
   createUser(user) {
-    this.afu.createUserWithEmailAndPassword( user.email, user.password)
+    return this.afu.createUserWithEmailAndPassword( user.email, user.password)
       .then( userCredential => {
         this.newUser = user;
         userCredential.user.updateProfile( {

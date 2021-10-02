@@ -38,6 +38,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PostComponent } from './components/post/post.component';
+import { PostlistComponent } from './components/postlist/postlist.component';
 
 
 
@@ -51,6 +52,7 @@ import { PostComponent } from './components/post/post.component';
     UserinfoComponent,
     PostComponent,
     ToolbarComponent,
+    PostlistComponent,
     
   ],
   imports: [
