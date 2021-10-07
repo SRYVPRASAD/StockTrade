@@ -82,8 +82,7 @@ export class AuthService {
         this.insertUserData(userCredential.user)
           .then(() => {
             this.router.navigate(['/userinfo']);
-          });
-          
+          });     
       })
       .catch( error => {
         console.log(error)

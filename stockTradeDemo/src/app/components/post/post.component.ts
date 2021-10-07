@@ -50,7 +50,15 @@ export class PostComponent implements OnInit {
     if (this.formTemplate.valid) {
       var filePath = `post/${formValue.category}/${this.auth.currentUserId}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.fdb.ref(filePath);
-      this.fdb.upload(filePath, this.selectedImage) 
+      this.fdb.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            formValue['imageUrl'] = url;
+            this.postSer.insertImageDetails(formValue);
+            this.resetForm();
+          })
+        })
+      ).subscribe(); 
     }
   }
 

@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
       const user = await this.afAuth.currentUser;
       const isAuthentication= user ? true : false;
       if(!isAuthentication) {
-        alert('logIn please ');
       }
     return isAuthentication;
   }

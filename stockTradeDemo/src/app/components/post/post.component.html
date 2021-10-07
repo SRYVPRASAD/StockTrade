@@ -7,7 +7,7 @@
         <div class="row">
             <mat-grid-list cols="2" >
               <mat-grid-tile><img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()"></mat-grid-tile>
-              <mat-grid-tile><label>Select file to upload</label><input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+              <mat-grid-tile><mat-label>Select file to upload</mat-label><input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
                 (change)="showPreview($event)"></mat-grid-tile>
               <mat-grid-tile>
               <div color *ngIf="isSubmitted && formControls.imageUrl.errors?.required">This field is required.
