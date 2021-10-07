@@ -12,7 +12,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
- 
+  selectedImage = '';
   hide = true;
   succesMessage = "";
   errorMessage = ""; //error validation 
@@ -21,13 +21,9 @@ export class RegisterComponent implements OnInit {
   constructor(private authservice: AuthService, 
               private router: Router,
               private formBuilder:FormBuilder) { }
-  
-  
-  @ViewChild('fileInput')
-  fileInput;
-  file: File | null = null;
-  
+              
   profileForm = this.formBuilder.group({
+    
     firstName:['',Validators.required],
     lastName:['',Validators.required],
     email:['',Validators.required],
@@ -46,35 +42,36 @@ export class RegisterComponent implements OnInit {
     this.succesMessage = "";
   };
 
-
-  onClickFileInputButton(): void {
-    this.fileInput.nativeElement.click();
-  }
-
-  onChangeFileInput(): void {
-    const files: { [key: string]: File } = this.fileInput.nativeElement.files;
-    this.file = files[0];
-    console.log(this.file);
+  showPreview(event){
+    this.selectedImage = event.target.files[0];
   }
 
   onSubmit(profileForm) {
+
+    console.log(profileForm);
     this.clearErrorMessage();
     if(this.validateForm(profileForm.email,profileForm.password)){
-    this.uploadProfile(this.file);
+      this.uploadProfile(this.selectedImage);
     this.authservice.createUser(profileForm)
     .then(() => {
-      this.succesMessage = "Sign UP successful!!!"
       this.router.navigate(['/userinfo'])
     }).catch(_error =>{
-      this.error = _error
-      
-    })
+      this.error = _error 
+    }) 
   }
+
+  }
+
+
+  get formControls() {
+    return this.profileForm;
   }
 
   uploadProfile(file){
-    this.authservice.uploadProfileImage(file)
+    this.authservice.uploadProfileImage(file);
   }
+
+
   validateForm(email, password)
   {
     if(email.length === 0){

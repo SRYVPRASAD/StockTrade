@@ -1,18 +1,19 @@
 <div class="center-content">
  <mat-card class="example-card">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+     
+      <mat-card-title> Welcome {{ user?.displayName }}</mat-card-title>
+      <mat-card-subtitle> User Profile</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+
+    <img mat-card-image [src]="imgSrc" alt="profile Image">
     <mat-card-content>
-      <div class="text-info p-5" *ngIf ="authservice.currentUser">
+      <div class="text-info p-5">
         <h2 class="allData">
             User Information
         </h2>
         <h4><b>User ID:</b>{{user?.uid}}</h4>
-        <h4><b>User ID:</b>{{ user?.email }}</h4>
+        <h4><b>User Email:</b>{{ user?.email }}</h4>
      
         <h4><b>User Name:</b>{{ user?.displayName }}</h4>
         

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "src/app/servives/auth.service";
-import { Router } from "@angular/router";
+import {AngularFireStorage} from '@angular/fire/storage/';
+
 
 
 @Component({
@@ -9,16 +10,27 @@ import { Router } from "@angular/router";
   styleUrls: ['./userinfo.component.css']
 })
 export class UserinfoComponent implements OnInit {
-
-  constructor(public authservice: AuthService, private router: Router) { }
-
   user:any;
-  ngOnInit() {
-    this.authservice.getUserState()
-    .subscribe( user => {
-      this.user = user;})
-  }
+  imgSrc : string = "assets/images/upload-1.png";
+
+  constructor(public authservice: AuthService, 
+              private fdb: AngularFireStorage) {    
+
+                }
+
   
+
+  ngOnInit() {
+    this.authservice.getUserState().subscribe( user => {this.user = user;})
+      this.downloadProfileImg()
+  }
+
+  downloadProfileImg(){
+    const ref = this.fdb.ref(`users/${this.authservice.currentUserId}/profile.jpg`);
+      ref.getDownloadURL().subscribe((url) => this.imgSrc = url );
+
+  }
+
   onSignOut(){
     this.authservice.signOut();
   }

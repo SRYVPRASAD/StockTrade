@@ -7,8 +7,8 @@
 <div class="link-row">
     <a mat-button routerLink='/userinfo'>Home</a>
     <a mat-button routerLink='/post'>Post</a>
-    <a mat-button routerLink='/login'>List-Post</a>
-    <a mat-button routerLink='/login'>Sign In</a>
+    <a mat-button routerLink='/postlist'>List-Post</a>
+    <a mat-button routerLink='/userinfo'>Profile</a>
     <button mat-raised-button *ngIf="!user" (click)="signIn()" color="accent">Sign In</button>
     <button mat-raised-button *ngIf="user" (click)="signOut()" color="accent">Sign Out</button>
     <button mat-raised-button *ngIf="!user" (click)="signUp()" color="accent">Sign Up</button>
